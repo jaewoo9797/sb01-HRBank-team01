@@ -50,7 +50,7 @@ public class Backup extends BaseTimeEntity {
 	@JoinColumn(name = "file_id")
 	FileEntity file;
 
-	public Backup(String worker, Status status, LocalDateTime startedAt, LocalDateTime endedAt) {
+	private Backup(String worker, Status status, LocalDateTime startedAt, LocalDateTime endedAt) {
 		this.worker = worker;
 		this.status = status;
 		this.startedAt = startedAt;

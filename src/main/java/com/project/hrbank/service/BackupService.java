@@ -72,16 +72,16 @@ public class BackupService {
     @Transactional
     public BackupResponse backup(String clientIpAddr) {
 
-        Backup backup = generateBackup(clientIpAddr);
-
         LocalDateTime lastEndedAtBackupDateTime = getLastEndedAt();
+
+        Backup backup = generateBackup(clientIpAddr);
+        backupRepository.save(backup);
         if (isNotChangedEmployeeInfo(lastEndedAtBackupDateTime)) {
             backup.updateSkipped();
-            return toDto(backupRepository.save(backup));
+            return toDto(backup);
         }
 
         generateBackupFile(backup);
-        backupRepository.save(backup);
         return toDto(backup);
     }
 
